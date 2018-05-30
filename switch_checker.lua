@@ -12,7 +12,7 @@ function _M:main(file_name)
     until false    
 
     local file_string = table.concat(words)
-    local switch_begin_pos, swtich_end_pos = 1, 1
+    local switch_begin_pos, switch_end_pos = 1, 1
     repeat
         switch_begin_pos = string.find(file_string, 'switch', switch_begin_pos) + 1
         local l, r = 0, 0
@@ -28,5 +28,17 @@ function _M:main(file_name)
 end
 
 function _M:check(switch_block)
+end
+
+function _M:escape_switch(block, start_pos)
+end
+
+function _M:escape_while(block, start_pos)
+end
+
+function _M:escape_for(block, start_pos)
+end
+
+function _M:find_key_word(block, key_word)
 end
 return _M
