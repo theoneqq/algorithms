@@ -19,16 +19,17 @@ string mininum(string s, string t) {
             for (; left < right; ++left) {
                 int c = s.at(left);
                 if (chars.find(c) != chars.end()) {
-                    count--;
                     if (chars[c]++ == 0) {
-                        if (right - left < min_right - min_left) {
-                            min_left = left;
-                            min_right = right;
-                        }
+                        count--;
                         break;
                     }
                 }
             }
+            if (right - left < min_right - min_left) {
+                min_left = left;
+                min_right = right;
+            }
+            left++;
         }
         right++;
     }
@@ -37,6 +38,6 @@ string mininum(string s, string t) {
 }
 
 int main() {
-    cout << mininum("BCCCCCCA BAAAA", "CA CA") << endl;
+    cout << mininum("AAAABBBBCBNAC", "ABC") << endl;
     return 0;
 }
