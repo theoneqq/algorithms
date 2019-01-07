@@ -1,45 +1,31 @@
 #include <string>
 #include <iostream>
-#include <unordered_set>
 #include <unordered_map>
 using namespace std;
 
 string mininum(string s, string t) {
-    unordered_set<int> chars;
+    unordered_map<int, int> chars;
     for (int i = 0; i < (int) t.length(); ++i) {
-        chars.insert((int) t.at(i));
+        int c = (int) t.at(i);
+        if (!chars.insert(make_pair(c, 1)).second) chars[c]++;
     }
-    auto size = chars.size();
-    unordered_map<int, int> t_stat;
-    int left = 0;
-    int right = 0;
     int s_length = (int) s.length();
-    int min_left = 0;
-    int min_right = s_length;
-    while (right < (int) s_length) {
+    int t_length = (int) t.length(), left = 0, right = 0, count = 0;
+    int min_left = 0, min_right = s_length;
+    while (right < s_length) {
         int c = (int) s.at(right);
-        if (chars.find(c) != chars.end()) {
-            if (!t_stat.insert(make_pair(c, 1)).second) {
-                t_stat[c]++;
-            }
-            if (t_stat.size() == size) {
-                if (right - left < min_right - min_left) {
-                    min_left = left;
-                    min_right = right;
-                }
-                for (; left < right; ++left) {
-                    int c = s.at(left);
-                    auto it = t_stat.find(c);
-                    if (it != t_stat.end()) {
-                        if (it->second > 1) {
-                            t_stat[c]--;
-                        } else{
-                            if (right - left < min_right - min_left) {
-                                min_left = left;
-                                min_right = right;
-                            }
-                            break;
+        if (chars.find(c) != chars.end() && chars[c]-- > 0) count++;
+        if (count == t_length) {
+            for (; left < right; ++left) {
+                int c = s.at(left);
+                if (chars.find(c) != chars.end()) {
+                    count--;
+                    if (chars[c]++ == 0) {
+                        if (right - left < min_right - min_left) {
+                            min_left = left;
+                            min_right = right;
                         }
+                        break;
                     }
                 }
             }
@@ -51,6 +37,6 @@ string mininum(string s, string t) {
 }
 
 int main() {
-    cout << mininum("AAA BC", " A BB") << endl;
+    cout << mininum("BCCCCCCA BAAAA", "CA CA") << endl;
     return 0;
 }
