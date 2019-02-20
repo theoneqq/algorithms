@@ -1,4 +1,5 @@
-import binchunk
+import const
+import struct
 class reader():
     data = bytearray()
     def read_byte(self):
@@ -25,8 +26,8 @@ class reader():
         return self.read_uint64()
 
     def read_lua_number(self):
-        i = self.read_uint64()
-        return float(i)
+        n = struct.unpack('d', self.read_bytes(8))[0]
+        return n
 
     def read_string(self):
         size = int(self.read_byte())
@@ -38,27 +39,28 @@ class reader():
         return bs.decode()
 
     def check_header(self):
-        if self.read_bytes(4).decode() != binchunk.LUA_SIGNATURE:
+        if self.read_bytes(4) != const.LUA_SIGNATURE:
             print("not a precompiled chunk!")
-        elif self.read_byte() != binchunk.LUAC_VERSION:
+        elif self.read_byte() != const.LUAC_VERSION:
             print("version mismatch!")
-        elif self.read_byte() != binchunk.LUAC_FORMAT:
+        elif self.read_byte() != const.LUAC_FORMAT:
             print("format mismatch!")
-        elif self.read_bytes(6).decode() != binchunk.LUAC_DATA:
+        elif self.read_bytes(6) != const.LUAC_DATA:
             print("corrupted!")
-        elif self.read_byte() != binchunk.CINT_SIZE:
+        elif self.read_byte() != const.CINT_SIZE:
             print("int size mismatch!")
-        elif self.read_byte() != binchunk.CSIZET_SIZE:
+        elif self.read_byte() != const.CSIZET_SIZE:
             print("size_t size mismatch!")
-        elif self.read_byte() != binchunk.INSTRUCTION_SIZE:
+        elif self.read_byte() != const.INSTRUCTION_SIZE:
             print("instruction size mismatch!")
-        elif self.read_byte() != binchunk.LUA_INTEGER_SIZE:
+        elif self.read_byte() != const.LUA_INTEGER_SIZE:
             print("lua integer size mismatch!")
-        elif self.read_byte() != binchunk.LUA_NUMBER_SIZE:
+        elif self.read_byte() != const.LUA_NUMBER_SIZE:
             print("lua number size mismatch!")
-        elif self.read_lua_integer() != binchunk.LUAC_INT:
+        elif self.read_lua_integer() != const.LUAC_INT:
             print("endianners mismatch!")
-        elif self.read_lua_number() != binchunk.LUAC_NUM:
+        elif self.read_lua_number() != const.LUAC_NUM:
+            float_num = self.read_lua_number()
             print("float format mismatch!")
 
 if __name__ == "__main__":
@@ -71,5 +73,5 @@ if __name__ == "__main__":
     print(r.read_string())
     """
 
-    r.data = bytearray(b'\x1bLua\x53\x00\x19\x93\x0d\x0a\x1a\x0a\x04\x08\x04\x08\x04\x08\x08\x56\x78\x00\x00\x00\x00\x00\x28\x77')
+    r.data = bytearray(b'\x1bLua\x53\x00\x19\x93\x0d\x0a\x1a\x0a\x04\x08\x04\x08\x08\x78\x56\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x28\x77\x40')
     r.check_header()
