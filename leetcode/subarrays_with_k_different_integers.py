@@ -26,10 +26,16 @@ class solution:
                 while l <= r:
                     cur = a[l]
                     counts[cur] -= 1
-                    l += 1
-                    if self.get_len(counts) == k:
+                    if self.get_len(counts) < k:
+                        if cur not in counts:
+                            counts[cur] = 1
+                        else:
+                            counts[cur] += 1
                         break
+                    l += 1
                 m = l
+                count += 1
+                print('>', l, r)
             elif counts_len == k:
                 while m <= r:
                     cur = a[m]
@@ -38,12 +44,11 @@ class solution:
                     else:
                         counts[cur] -= 1
                     m += 1
+                print('<', l, m)
                 count += m - l + 1
             r += 1
-        if m == l:
-            count += 1
         return count
 
-print('result: {0}'.format(solution().subarray_with_k_distinct((1,2,1,2,3), 2)))
+print('result: {0}'.format(solution().subarray_with_k_distinct((1,2,1,2,1,2), 2)))
                 
 
