@@ -14,7 +14,6 @@ class solution:
 
         l = 0
         r = 0
-        m = 0
         while l <= r and r < list_len:
             cur = a[r]
             if cur not in counts:
@@ -22,6 +21,7 @@ class solution:
             else:
                 counts[cur] += 1
             counts_len = self.get_len(counts)
+            print('counts', counts)
             if counts_len > k:
                 while l <= r:
                     cur = a[l]
@@ -33,10 +33,10 @@ class solution:
                             counts[cur] += 1
                         break
                     l += 1
-                m = l
                 count += 1
                 print('>', l, r)
             elif counts_len == k:
+                m = l
                 while m <= r:
                     cur = a[m]
                     if counts[cur] == 1:
@@ -45,6 +45,12 @@ class solution:
                         counts[cur] -= 1
                     m += 1
                 print('<', l, m)
+                for i in range(l, m):
+                    cur = a[i]
+                    if cur not in counts:
+                        counts[cur] = 1
+                    else:
+                        counts[cur] += 1
                 count += m - l + 1
             r += 1
         return count
