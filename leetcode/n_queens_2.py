@@ -16,19 +16,13 @@ class solution:
             self.count += 1
             return
 
-        has_next = False
-        for num in available:
+        for num in available.copy():
             if self.can(used, num):
-                has_next = True
                 del available[num]
                 used.append(num)
                 self.helper(available, used)
                 available[num] = 1
                 used.pop()
-
-        if not has_next:
-            return
-
 
     def total_n_queens(self, n: int) -> int:
         available = {}
