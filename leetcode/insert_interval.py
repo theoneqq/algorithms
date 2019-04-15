@@ -18,7 +18,11 @@ class solution:
                 else:
                     result_intervals.append(cur_interval)
                 if start != -1 and end == -1:
-                    if new_end <= cur_end:
+                    if new_end < cur_start:
+                        end = new_end
+                        result_intervals.append(interval(start, end))
+                        result_intervals.append(cur_interval)
+                    elif new_end <= cur_end:
                         end = cur_end
                         result_intervals.append(interval(start, end))
             elif end == -1:
@@ -41,8 +45,8 @@ class solution:
         return result_intervals
 
 
-intervals = []
-new_interval = interval(12, 16)
+intervals = [interval(1, 1), interval(2, 2)]
+new_interval = interval(1, 1)
 intervals = solution().insert(intervals, new_interval)
 
 for interval in intervals:
