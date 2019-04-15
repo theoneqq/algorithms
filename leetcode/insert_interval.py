@@ -31,13 +31,17 @@ class solution:
                     result_intervals.append(interval(start, end))
             else:
                 result_intervals.append(cur_interval)
-        if end == -1:
-            result_intervals.append(interval(start, new_end))
+        if start == -1 or end == -1:
+            if start == -1:
+                start = new_start
+            if end == -1:
+                end = new_end
+            result_intervals.append(interval(start, end))
 
         return result_intervals
 
 
-intervals = [interval(1, 2), interval(3, 5), interval(6, 7), interval(8, 10), interval(12, 16)]
+intervals = []
 new_interval = interval(12, 16)
 intervals = solution().insert(intervals, new_interval)
 
