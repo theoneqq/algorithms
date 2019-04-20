@@ -13,11 +13,13 @@ class solution:
             elif left in d:
                 max_left = d[left][0]
                 d[max_left][1] = num
-                d[num][0] = left
+                d[num][0] = max_left
             elif right in d:
                 max_right = d[right][1]
                 d[max_right][0] = num
-                d[num][1] = right
+                d[num][1] = max_right
+        if len(d) == 0:
+            return 0
         max_d = max(d.values(), key = lambda p: p[1] - p[0])
         return max_d[1] - max_d[0] + 1
 
