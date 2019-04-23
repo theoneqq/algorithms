@@ -23,7 +23,7 @@ class solution:
                 if row < 1:
                     m[row][col] = 1 if matrix[row][col] == 1 else 0
                 else:
-                    m[row][col] = m[row - 1][col] + (1 if matrix[row][col] == 1 else 0)
+                    m[row][col] = m[row - 1][col] + 1 if matrix[row][col] == 1 else 0
         print(m)
 
         res = 0
@@ -35,4 +35,4 @@ class solution:
 #print('result: {0}'.format(solution().maximal_histogram([2,1,5,6,2,3])))
 print('result: {0}'.format(solution().maximal_rectangle([[1,0,1,0,0],[1,0,1,1,1,],[1,1,1,1,1],[1,0,0,1,0]])))
 print('result: {0}'.format(solution().maximal_rectangle([[1,0,1,0,0]])))
-print('result: {0}'.format(solution().maximal_rectangle([])))
+print('result: {0}'.format(solution().maximal_rectangle([[0,1],[1,0]])))
