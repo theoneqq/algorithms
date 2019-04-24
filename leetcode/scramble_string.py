@@ -3,7 +3,7 @@ class solution:
         self.dp = {}
 
     def is_scramble(self, s1, s2) -> bool:
-        comb = s1 + s2
+        comb = s1 + '#' + s2
         if comb in self.dp:
             return self.dp[comb]
 
@@ -20,14 +20,13 @@ class solution:
             if self.is_scramble(s1_left, s2_left1) and self.is_scramble(s1_right, s2_right1):
                 res = True
                 break
-            if i != (s_len >> 1):
-                s2_left2, s2_right2 = s2[-i:], s2[:-i]
-                if self.is_scramble(s1_left, s2_left2) and self.is_scramble(s1_right, s2_right2):
-                    res = True
-                    break
+            s2_left2, s2_right2 = s2[-i:], s2[:-i]
+            if self.is_scramble(s1_left, s2_left2) and self.is_scramble(s1_right, s2_right2):
+                res = True
+                break
 
         self.dp[comb] = res
         return res
 
 print('result: {0}'.format(solution().is_scramble('abcdefghijklmnopq', 'efghijklmnopqcadb')))
-print('result: {0}'.format(solution().is_scramble('abcd', 'cadb')))
+print('result: {0}'.format(solution().is_scramble('great', 'rgeat')))
