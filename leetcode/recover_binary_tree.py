@@ -20,15 +20,14 @@ class solution:
         l = len(node_vals)
 
         m_count = 0
-        for i in range(0, l - 1):
-            if node_vals[i] < node_vals[i + 1]:
-                continue
-            m_count += 1
-            while i + 1 < l and node_vals[i] > node_vals[i + 1]:
-                node_vals[i], node_vals[i + 1] = node_vals[i + 1], node_vals[i]
-                i += 1
-            if m_count >= 2:
-                break
+        while m_count < 2:
+            for i in range(0, l - 1):
+                if node_vals[i] > node_vals[i + 1]:
+                    m_count += 1
+                    j = i
+                    while j + 1 < l and node_vals[j] > node_vals[j + 1]:
+                        node_vals[j], node_vals[j + 1] = node_vals[j + 1], node_vals[j]
+                        j += 1
 
         for node in self.v_nodes:
             print(node.val)
@@ -52,6 +51,12 @@ n4 = tree_node(2)
 n1.left = n2
 n1.right = n3
 n3.left = n4
-
+'''
+n1 = tree_node(1)
+n2 = tree_node(3)
+n3 = tree_node(2)
+n1.left = n2
+n2.right = n3
+'''
 solution().recover_tree(n1)
 
