@@ -19,15 +19,16 @@ class solution:
         node_vals = [node.val for node in self.v_nodes]
         l = len(node_vals)
 
-        m_count = 0
-        while m_count < 2:
-            for i in range(0, l - 1):
-                if node_vals[i] > node_vals[i + 1]:
-                    m_count += 1
-                    j = i
-                    while j + 1 < l and node_vals[j] > node_vals[j + 1]:
-                        node_vals[j], node_vals[j + 1] = node_vals[j + 1], node_vals[j]
-                        j += 1
+        while True:
+            has_sorted = True
+            for i in range(0, l):
+                if i + 1 < l and node_vals[i] > node_vals[i + 1]:
+                    has_sorted = False
+                    while node_vals[i] > node_vals[i + 1]:
+                        node_vals[i], node_vals[i + 1] = node_vals[i + 1], node_vals[i]
+                    break
+            if has_sorted:
+                break
 
         for node in self.v_nodes:
             print(node.val)
