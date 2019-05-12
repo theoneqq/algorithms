@@ -15,12 +15,18 @@ class solution():
                 left, right, d = cur_min, cur_max, cur_max - cur_min
 
             for cur in curs:
-                idx = curs_copy.index(cur)
-                if idxs[idx] + 1 < len(nums[idx]):
-                    idxs[idx] += 1
+                find = False
+                for idx in range(len(curs_copy)):
+                    if curs_copy[idx] == cur:
+                        if idxs[idx] + 1 < len(nums[idx]):
+                            find = True
+                            idxs[idx] += 1
+                            break
+                if find:
                     break
         return [left, right]
 
 
-ls = [[1, 9, 15, 24, 36], [0, 9, 12, 40], [-5, 18, 22, 30]]
+#ls = [[1, 9, 15, 24, 36], [0, 9, 12, 40], [-5, 18, 22, 30]]
+ls = [[-5,-4,-3,-2,-1,1], [1,2,3,4,5]]
 print('result: {0}'.format(solution().smallest_range(ls)))
