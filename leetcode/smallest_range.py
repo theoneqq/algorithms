@@ -5,9 +5,9 @@ class solution():
         left, right = min([ nums[i][0] for i in range(nl) ]), max([ nums[i][-1] for i in range(nl) ])
         d = right - left
 
-        while idxs != [ len(cn) - 1 for cn in nums ]:
+        while idxs != [ len(l) - 1 for l in nums ]:
             curs = [ nums[i][idxs[i]] for i in range(nl) ]
-            curs_copy = curs
+            curs_copy = curs.copy()
             curs.sort()
 
             cur_min, cur_max = curs[0], curs[-1]
@@ -19,7 +19,8 @@ class solution():
                 if idxs[idx] + 1 < len(nums[idx]):
                     idxs[idx] += 1
                     break
+        return [left, right]
 
 
-ls = [[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]]
+ls = [[1, 9, 15, 24, 36], [0, 9, 12, 40], [-5, 18, 22, 30]]
 print('result: {0}'.format(solution().smallest_range(ls)))
