@@ -2,7 +2,7 @@ class solution():
     def smallest_range(self, nums) ->[]:
         nl = len(nums)
         idxs = [ 0 for i in range(nl) ]
-        left, right = min([ nums[i][0] for i in range(nl) ]), max([ nums[i][-1] for i in range(nl) ])
+        left, right = min([ nums[i][-1] for i in range(nl) ]), max([ nums[i][-1] for i in range(nl) ])
         d = right - left
 
         while idxs != [ len(l) - 1 for l in nums ]:
@@ -24,9 +24,13 @@ class solution():
                             break
                 if find:
                     break
+
+
+
         return [left, right]
 
 
 #ls = [[1, 9, 15, 24, 36], [0, 9, 12, 40], [-5, 18, 22, 30]]
-ls = [[-5,-4,-3,-2,-1,1], [1,2,3,4,5]]
+#ls = [[-5,-4,-3,-2,-1,1], [1,2,3,4,5]]
+ls = [[1,3,5,7,9,10], [2,4,6,8,10]]
 print('result: {0}'.format(solution().smallest_range(ls)))
