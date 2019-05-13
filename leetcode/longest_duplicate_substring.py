@@ -1,9 +1,15 @@
 class solution:
+    def init_exp(self, max_k):
+        self.exps = {}
+        self.exps[0] = 1
+        for i in range(1, max_k):
+            self.exps[i] = (self.exps[i - 1] << 5) % self.p
+
     def cal_hash(self, chars):
         h = 0
         cl = len(chars)
         for i in range(cl):
-            h += ((ord(chars[i]) - 97) * (26 ** (cl - i - 1))) % self.p
+            h += ((ord(chars[i]) - 97) * (self.exps[cl - i - 1])) % self.p
         return h % self.p
 
     def find_k(self, s, k):
@@ -14,7 +20,7 @@ class solution:
 
         for i in range(1, self.l - k + 1):
             new_peiece = s[i:i + k]
-            new_peiece_hash = ((prev_peiece_hash - (ord(prev_peiece[0]) - 97) * (26 ** (k - 1))) * 26 + (ord(new_peiece[-1]) - 97)) % self.p
+            new_peiece_hash = (((prev_peiece_hash - (ord(prev_peiece[0]) - 97) * (self.exps[k - 1])) << 5) + (ord(new_peiece[-1]) - 97)) % self.p
             if new_peiece_hash in peieces:
                 for peiece in peieces[new_peiece_hash]:
                     if peiece == new_peiece:
@@ -29,6 +35,7 @@ class solution:
     def longest_duplicate_substring(self, s):
         self.p = 16777619
         self.l = len(s)
+        self.init_exp(self.l)
         res, low, high = '', 1, self.l
         while low <= high:
             mid = (low + high) // 2
