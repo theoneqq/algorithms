@@ -1,4 +1,5 @@
 #include <vector>
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -33,13 +34,13 @@ public:
 				rank[i] = tmp[i];
 			}
 		}
+		free(tmp);
 	}
 
 	void construct_lcp(const string& S, int *rank, int *sa, int *lcp) {
 		int n = S.length();
-		for (int i = 0; i <= n; ++i) rank[sa[i]] = i;
-		
-		int i, h = 0;
+		int i = 0;
+		int h = 0;
 		lcp[0] = 0;
 		for (; i < n; ++i) {
 			int j = sa[rank[i] - 1];
@@ -47,20 +48,20 @@ public:
 			for (; j + h < n && i + h < n; h++) {
 				if (S[j + h] != S[i + h]) break;
 			}
+			lcp[rank[i] - 1] = h;
 		}
-		lcp[rank[i] - 1] = h;
 	}
 
 	string longest_duplicate_string(string S) {
 		int s_len = S.length();
 		int *rank = (int *) malloc((s_len + 1) * sizeof(int));
-		int *tmp = (int *) malloc((s_len + 1) * sizeof(int));
 		int *sa = (int *) malloc((s_len + 1) * sizeof(int));
 		int *lcp = (int *) malloc(s_len * sizeof(int));
 		construct_sa(S, rank, sa);
 		construct_lcp(S, rank, sa, lcp);
 
-		int l, idx = 0;
+		int l = 0;
+		int idx = 0;
 		for (int i = 0; i < s_len; ++i) {
 			if (l < lcp[i]) {
 				l = lcp[i];
