@@ -68,12 +68,12 @@ public:
 				idx = sa[i];
 			}
 		}
-		cout << "result: " << S.substr(idx, l) << endl;
+		return S.substr(idx, l);
 	}
 };
 
 int main() {
 	solution s = solution();
-	s.longest_duplicate_string("banana");
+	cout << "result: " << s.longest_duplicate_string("banana") << endl;
 	return 0;
 }
