@@ -34,7 +34,13 @@ public:
 				rank[i] = tmp[i];
 			}
 		}
-		free(tmp);
+		for (int i = 0; i <= n; ++i)
+			cout << sa[i];
+		cout << endl;
+		for (int i = 0; i <= n; ++i)
+			cout << rank[i];
+		cout << endl;
+		//free(tmp);
 	}
 
 	void construct_lcp(const string& S, int *rank, int *sa, int *lcp) {
@@ -48,7 +54,7 @@ public:
 			for (; j + h < n && i + h < n; h++) {
 				if (S[j + h] != S[i + h]) break;
 			}
-			lcp[rank[i] - 1] = h;
+			lcp[rank[i]] = h;
 		}
 	}
 
@@ -56,13 +62,13 @@ public:
 		int s_len = S.length();
 		int *rank = (int *) malloc((s_len + 1) * sizeof(int));
 		int *sa = (int *) malloc((s_len + 1) * sizeof(int));
-		int *lcp = (int *) malloc(s_len * sizeof(int));
+		int *lcp = (int *) malloc((s_len + 1)* sizeof(int));
 		construct_sa(S, rank, sa);
 		construct_lcp(S, rank, sa, lcp);
 
 		int l = 0;
 		int idx = 0;
-		for (int i = 0; i < s_len; ++i) {
+		for (int i = 1; i <= s_len; ++i) {
 			if (l < lcp[i]) {
 				l = lcp[i];
 				idx = sa[i];
