@@ -22,7 +22,7 @@ class solution:
 
     
     def helper(self, l, r):
-        if l == r:
+        if l >= r:
             return 0
         count = 0
         m = (l + r) // 2
