@@ -35,6 +35,8 @@ class solution:
                                 start_s = s_stats[start]
                                 t_stats[start_s] = t_stats.get(start_s, 0) + 1
                                 start += l_word
+                    if end >= l_s:
+                        break
                 else:
                     start += l_word
             return res
@@ -46,6 +48,7 @@ class solution:
 
 #print('result: {0}'.format(solution().find_substring('barfoothefoobarman', ['foo', 'bar'])))
 #print('result: {0}'.format(solution().find_substring('barfoothefboobfarman', ['f', 'b'])))
-print('result: {0}'.format(solution().find_substring('barfoothefboobfarman', ['f'])))
-print('result: {0}'.format(solution().find_substring('', ['f', 'b'])))
-print('result: {0}'.format(solution().find_substring('', [])))
+#print('result: {0}'.format(solution().find_substring('barfoothefboobfarman', ['f'])))
+#print('result: {0}'.format(solution().find_substring('', ['f', 'b'])))
+#print('result: {0}'.format(solution().find_substring('', [])))
+print('result: {0}'.format(solution().find_substring('wordgoodgoodgoodbestword', ['word','good','best','word'])))
