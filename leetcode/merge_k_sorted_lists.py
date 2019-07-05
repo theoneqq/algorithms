@@ -13,7 +13,11 @@ class solution:
     def merge(self, lists):
         if len(lists) == 0:
             return None
-        top_heap = [ [lists[i].val, i] for i in range(len(lists)) ]
+        top_heap = []
+        for i in range(len(lists)):
+            node = lists[i]
+            if node != None:
+                top_heap.append([node.val, i])
         heapq.heapify(top_heap)
         sorted_notes = []
         while len(top_heap) > 0:
@@ -46,7 +50,9 @@ n7.next = n8
 
 #print(n7)
 #print('result: {0}'.format(solution().merge([n1, n4, n7])))
-solution().merge([n1, n4, n7])
+print('result: {0}'.format(solution().merge([n1])))
+print('result: {0}'.format(solution().merge([n1, None, n4])))
+#solution().merge([n1, n4, n7])
 
 
 
