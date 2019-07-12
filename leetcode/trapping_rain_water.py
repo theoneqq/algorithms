@@ -17,24 +17,24 @@ class solution:
                 res += max(0, std_height - heights[i])
             return res
 
-        area = 0
+        area, start = 0, 0
         len_points = len(h_points)
-        for start in range(len_points - 1):
+        while start < len_points - 1:
             i_height = h_points[start][1]
             end = start + 1
             for j in range(start + 1, len_points):
                 j_height = h_points[j][1]
-                if j_height > i_height:
+                if j_height >= i_height:
                     end = j
                     break
                 else:
                     if j_height > h_points[end][1]:
                         end = j
             area += cal(h_points[start][0], h_points[end][0])
+            start = end
 
         return area
                     
-
 
 print('result: {0}'.format(solution().trap([0,1,0,2,1,0,1,3,2,1,2,1])))
 print('result: {0}'.format(solution().trap([0])))
@@ -42,3 +42,4 @@ print('result: {0}'.format(solution().trap([0,1])))
 print('result: {0}'.format(solution().trap([])))
 print('result: {0}'.format(solution().trap([1,0,1])))
 print('result: {0}'.format(solution().trap([2,0,1])))
+print('result: {0}'.format(solution().trap([5,2,1,2,1,5])))
