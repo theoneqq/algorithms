@@ -17,7 +17,7 @@ class solution:
                     r_max_height = heights[r]
                 else:
                     area += r_max_height - heights[r]
-                r += 1
+                r -= 1
         return area
 
                     
