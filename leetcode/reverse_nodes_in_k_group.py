@@ -13,7 +13,7 @@ class solution:
         if head == None or k <= 1:
             return head
 
-        res, first, prev, cur, nxt, full = None, None, None, head, None, True
+        res, first, prev, cur, nxt, full = head, None, None, head, None, True
         def reverse(num):
             nonlocal res, first, cur, nxt, full
             if cur == None:
@@ -28,7 +28,7 @@ class solution:
                 cur, nxt = nxt, tmp
                 num -= 1
             full = num == 1
-            if res == None and cur != None:
+            if res == head and cur != None and full:
                 res = cur
 
         while cur != None and full:
@@ -50,6 +50,6 @@ n4.next = n5
 #print('result: {0}'.format(solution().reverse_nodes(n1, 0)))
 #print('result: {0}'.format(solution().reverse_nodes(n1, 5)))
 #print('result: {0}'.format(solution().reverse_nodes(n1, 4)))
-print('result: {0}'.format(solution().reverse_nodes(n1, 3)))
-print('result: {0}'.format(solution().reverse_nodes(n1, 2)))
+print('result: {0}'.format(solution().reverse_nodes(n1, 6)))
+#print('result: {0}'.format(solution().reverse_nodes(n1, 2)))
 #print('result: {0}'.format(solution().reverse_nodes(n1, 1)))
